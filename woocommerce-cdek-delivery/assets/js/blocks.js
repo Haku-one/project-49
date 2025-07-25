@@ -54,8 +54,29 @@ jQuery(document).ready(function($) {
             handleShippingMethodChange();
         });
         
+        // Слушаем клики по способам доставки в блочном checkout
+        $(document).on('click', '.wc-block-checkout__shipping-method-option', function() {
+            setTimeout(handleShippingMethodChange, 500);
+        });
+        
+        // Наблюдаем за изменениями в DOM
+        var shippingObserver = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'aria-checked') {
+                    setTimeout(handleShippingMethodChange, 100);
+                }
+            });
+        });
+        
+        // Запускаем наблюдение за способами доставки
+        var shippingMethods = document.querySelectorAll('.wc-block-checkout__shipping-method-option');
+        shippingMethods.forEach(function(method) {
+            shippingObserver.observe(method, { attributes: true });
+        });
+        
         // Проверяем при загрузке страницы
         setTimeout(handleShippingMethodChange, 1000);
+        setTimeout(handleShippingMethodChange, 3000); // Дополнительная проверка
     }
     
     function addCdekMapBlock(content) {
@@ -139,20 +160,38 @@ jQuery(document).ready(function($) {
         }, 500);
     }
     
+    // Глобальная функция для инициализации событий
+    window.initCdekBlockEvents = function() {
+        bindCdekEvents();
+        setTimeout(handleShippingMethodChange, 500);
+    };
+    
     function handleShippingMethodChange() {
         var selectedMethod = $('input[name*="shipping_method"]:checked').val();
         var cdekContainer = $('#cdek-pickup-container');
         
-        if (selectedMethod && (selectedMethod.indexOf('cdek') !== -1 || selectedMethod.indexOf('pickup') !== -1)) {
+        // Проверяем выбранный способ доставки по тексту
+        var selectedShippingText = $('.wc-block-checkout__shipping-method-option--selected .wc-block-checkout__shipping-method-option-title').text();
+        var isPickupSelected = selectedShippingText && selectedShippingText.toLowerCase().indexOf('самовывоз') !== -1;
+        
+        console.log('Selected shipping method:', selectedMethod);
+        console.log('Selected shipping text:', selectedShippingText);
+        console.log('Is pickup selected:', isPickupSelected);
+        
+        if (isPickupSelected || (selectedMethod && (selectedMethod.indexOf('cdek') !== -1 || selectedMethod.indexOf('pickup') !== -1))) {
             cdekContainer.show();
             
             if (!cdekMap) {
                 setTimeout(initMap, 100);
             }
             
-            var city = $('#cdek-city-search').val().trim();
-            if (city && !selectedOffice) {
-                searchOffices(city);
+            // Автоматически заполняем город из формы
+            var city = getShippingCity();
+            if (city) {
+                $('#cdek-city-search').val(city);
+                if (!selectedOffice) {
+                    searchOffices(city);
+                }
             }
         } else {
             cdekContainer.hide();
@@ -205,36 +244,48 @@ jQuery(document).ready(function($) {
     // Поиск пунктов выдачи
     function searchOffices(city) {
         if (!city) {
-            showError(wc_cdek_blocks.i18n.enter_city);
+            showError('Введите название города');
             return;
         }
+        
+        console.log('Searching offices for city:', city);
+        console.log('AJAX URL:', wc_cdek_blocks.ajax_url);
+        console.log('Nonce:', wc_cdek_blocks.nonce);
         
         showLoading();
         
         $.ajax({
-            url: wc_cdek_blocks.rest_url + 'offices',
+            url: wc_cdek_blocks.ajax_url,
             type: 'POST',
             data: {
-                city: city
-            },
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader('X-WP-Nonce', wc_cdek_blocks.nonce);
+                action: 'cdek_get_offices',
+                city: city,
+                nonce: wc_cdek_blocks.nonce
             },
             success: function(response) {
+                console.log('AJAX response:', response);
                 hideLoading();
                 
-                if (response && response.length > 0) {
+                if (response.success && response.data && response.data.length > 0) {
+                    displayOffices(response.data);
+                    displayOfficesOnMap(response.data);
+                    $('#cdek-map-container').show();
+                    $('#cdek-offices-list').show();
+                } else if (response.success && response.length > 0) {
+                    // Fallback для прямого ответа
                     displayOffices(response);
                     displayOfficesOnMap(response);
                     $('#cdek-map-container').show();
                     $('#cdek-offices-list').show();
                 } else {
-                    showError(wc_cdek_blocks.i18n.no_offices);
+                    var errorMsg = response.data ? response.data.message : 'Пункты выдачи не найдены';
+                    showError(errorMsg);
                 }
             },
-            error: function() {
+            error: function(xhr, status, error) {
+                console.error('AJAX error:', status, error, xhr.responseText);
                 hideLoading();
-                showError(wc_cdek_blocks.i18n.error);
+                showError('Ошибка загрузки данных: ' + error);
             }
         });
     }

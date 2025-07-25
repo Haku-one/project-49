@@ -36,12 +36,87 @@ class WC_CDEK_Blocks {
      * Register blocks when WooCommerce Blocks is loaded
      */
     public function register_blocks() {
+        // Добавляем блок карты после загрузки страницы
+        add_action('wp_footer', array($this, 'add_map_block_to_checkout'));
+        
         if (class_exists('Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry')) {
             add_action(
                 'woocommerce_blocks_checkout_block_registration',
                 array($this, 'register_checkout_block_integration')
             );
         }
+    }
+    
+    /**
+     * Add map block to checkout via JavaScript
+     */
+    public function add_map_block_to_checkout() {
+        if (!is_checkout()) {
+            return;
+        }
+        
+        ?>
+        <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            // Добавляем блок карты если его еще нет
+            function addCdekMapBlock() {
+                if ($('.wp-block-cdek-checkout-map-block').length === 0) {
+                    var shippingOptionsBlock = $('.wc-block-checkout__shipping-option');
+                    if (shippingOptionsBlock.length > 0) {
+                                                 var mapBlockHtml = '<div class="wp-block-cdek-checkout-map-block" data-initialized="true">' +
+                             '<div id="cdek-pickup-container" style="display: none;">' +
+                                 '<h4>Выберите пункт выдачи</h4>' +
+                                 '<div class="cdek-search-container">' +
+                                     '<input type="text" id="cdek-city-search" placeholder="Введите название города" />' +
+                                     '<button type="button" id="cdek-search-btn">Поиск</button>' +
+                                 '</div>' +
+                                 '<div id="cdek-map-container" style="display: none;">' +
+                                     '<div id="cdek-map" style="width: 100%; height: 400px;"></div>' +
+                                 '</div>' +
+                                 '<div id="cdek-offices-list" style="display: none;">' +
+                                     '<h5>Доступные пункты выдачи:</h5>' +
+                                     '<div class="cdek-offices-container"></div>' +
+                                 '</div>' +
+                                 '<input type="hidden" id="cdek-selected-office" name="cdek_pickup_office" value="" />' +
+                                 '<div id="cdek-selected-office-info" style="display: none;">' +
+                                     '<h5>Выбранный пункт выдачи:</h5>' +
+                                     '<div class="cdek-office-details"></div>' +
+                                 '</div>' +
+                             '</div>' +
+                         '</div>';
+                        
+                        shippingOptionsBlock.after(mapBlockHtml);
+                        console.log('CDEK map block added to checkout');
+                        
+                        // Инициализируем события
+                        if (typeof window.initCdekBlockEvents === 'function') {
+                            window.initCdekBlockEvents();
+                        }
+                    }
+                }
+            }
+            
+            // Пробуем добавить блок несколько раз
+            setTimeout(addCdekMapBlock, 1000);
+            setTimeout(addCdekMapBlock, 3000);
+            setTimeout(addCdekMapBlock, 5000);
+            
+            // Наблюдаем за изменениями DOM
+            var observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.addedNodes.length > 0) {
+                        setTimeout(addCdekMapBlock, 500);
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+        </script>
+        <?php
     }
     
     /**

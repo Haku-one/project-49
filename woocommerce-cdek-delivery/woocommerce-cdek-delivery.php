@@ -99,6 +99,13 @@ class WC_CDEK_Delivery {
      * Load plugin textdomain
      */
     public function load_plugin_textdomain() {
+        $locale = apply_filters('plugin_locale', get_locale(), 'woocommerce-cdek-delivery');
+        $mofile = WC_CDEK_PLUGIN_PATH . 'languages/woocommerce-cdek-delivery-' . $locale . '.mo';
+        
+        if (file_exists($mofile)) {
+            load_textdomain('woocommerce-cdek-delivery', $mofile);
+        }
+        
         load_plugin_textdomain('woocommerce-cdek-delivery', false, dirname(plugin_basename(__FILE__)) . '/languages/');
     }
     
@@ -106,7 +113,7 @@ class WC_CDEK_Delivery {
      * Load plugin textdomain (alternative method)
      */
     public function load_textdomain() {
-        load_plugin_textdomain('woocommerce-cdek-delivery', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+        $this->load_plugin_textdomain();
     }
     
     /**
@@ -212,12 +219,19 @@ class WC_CDEK_Delivery {
      * AJAX handler for getting CDEK offices
      */
     public function ajax_get_offices() {
-        if (!wp_verify_nonce($_POST['nonce'] ?? '', 'wc_cdek_nonce')) {
-            wp_send_json_error(array('message' => 'Security check failed'));
+        // Проверяем nonce
+        $nonce = $_POST['nonce'] ?? $_REQUEST['nonce'] ?? '';
+        if (!wp_verify_nonce($nonce, 'wc_cdek_nonce')) {
+            wp_send_json_error(array('message' => 'Security check failed. Nonce: ' . $nonce));
             return;
         }
         
         $city = sanitize_text_field($_POST['city'] ?? '');
+        
+        if (empty($city)) {
+            wp_send_json_error(array('message' => 'City parameter is required'));
+            return;
+        }
         
         if (!class_exists('WC_CDEK_API')) {
             wp_send_json_error(array('message' => 'CDEK API class not found'));
@@ -227,7 +241,11 @@ class WC_CDEK_Delivery {
         $api = new WC_CDEK_API();
         $offices = $api->get_delivery_points_with_map($city);
         
-        wp_send_json_success($offices);
+        if (is_array($offices) && !empty($offices)) {
+            wp_send_json_success($offices);
+        } else {
+            wp_send_json_error(array('message' => 'No offices found for city: ' . $city));
+        }
     }
 }
 
