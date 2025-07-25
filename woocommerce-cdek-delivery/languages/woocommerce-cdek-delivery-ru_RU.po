@@ -1,0 +1,202 @@
+# WooCommerce CDEK Delivery Russian Translation
+# Copyright (C) 2024
+# This file is distributed under the same license as the WooCommerce CDEK Delivery package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce CDEK Delivery 1.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-01 12:00+0000\n"
+"PO-Revision-Date: 2024-01-01 12:00+0000\n"
+"Last-Translator: Ваше Имя <email@example.com>\n"
+"Language-Team: Russian\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "CDEK Delivery"
+msgstr "CDEK Доставка"
+
+msgid "CDEK delivery method with pickup points and door delivery"
+msgstr "Метод доставки CDEK с пунктами выдачи и доставкой до двери"
+
+msgid "Select CDEK Pickup Point"
+msgstr "Выберите пункт выдачи CDEK"
+
+msgid "Выберите пункт выдачи CDEK"
+msgstr "Выберите пункт выдачи CDEK"
+
+msgid "Enter your city"
+msgstr "Введите название города"
+
+msgid "Введите название города"
+msgstr "Введите название города"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid "Поиск"
+msgstr "Поиск"
+
+msgid "Available pickup points:"
+msgstr "Доступные пункты выдачи:"
+
+msgid "Доступные пункты выдачи:"
+msgstr "Доступные пункты выдачи:"
+
+msgid "Selected pickup point:"
+msgstr "Выбранный пункт выдачи:"
+
+msgid "Выбранный пункт выдачи:"
+msgstr "Выбранный пункт выдачи:"
+
+msgid "Loading..."
+msgstr "Загрузка..."
+
+msgid "Загрузка..."
+msgstr "Загрузка..."
+
+msgid "Error loading data"
+msgstr "Ошибка загрузки данных"
+
+msgid "Ошибка загрузки данных"
+msgstr "Ошибка загрузки данных"
+
+msgid "No pickup points found"
+msgstr "Пункты выдачи не найдены"
+
+msgid "Пункты выдачи не найдены"
+msgstr "Пункты выдачи не найдены"
+
+msgid "Calculate delivery cost"
+msgstr "Рассчитать стоимость доставки"
+
+msgid "Рассчитать стоимость доставки"
+msgstr "Рассчитать стоимость доставки"
+
+msgid "CDEK Pickup Point"
+msgstr "Пункт выдачи CDEK"
+
+msgid "Пункт выдачи CDEK"
+msgstr "Пункт выдачи CDEK"
+
+msgid "Code:"
+msgstr "Код:"
+
+msgid "Код:"
+msgstr "Код:"
+
+msgid "Address:"
+msgstr "Адрес:"
+
+msgid "Адрес:"
+msgstr "Адрес:"
+
+msgid "Phone:"
+msgstr "Телефон:"
+
+msgid "Телефон:"
+msgstr "Телефон:"
+
+msgid "Working hours:"
+msgstr "Время работы:"
+
+msgid "Время работы:"
+msgstr "Время работы:"
+
+msgid "CDEK Pickup Point:"
+msgstr "Пункт выдачи CDEK:"
+
+msgid "Пункт выдачи CDEK:"
+msgstr "Пункт выдачи CDEK:"
+
+msgid "Pickup point:"
+msgstr "Пункт выдачи:"
+
+msgid "Пункт выдачи:"
+msgstr "Пункт выдачи:"
+
+msgid "Enable/Disable"
+msgstr "Включить/Отключить"
+
+msgid "Включить/Отключить"
+msgstr "Включить/Отключить"
+
+msgid "Enable CDEK delivery"
+msgstr "Включить доставку CDEK"
+
+msgid "Включить доставку CDEK"
+msgstr "Включить доставку CDEK"
+
+msgid "Title"
+msgstr "Название"
+
+msgid "Название"
+msgstr "Название"
+
+msgid "This controls the title which the user sees during checkout."
+msgstr "Название метода доставки, которое видит пользователь при оформлении заказа."
+
+msgid "Название метода доставки, которое видит пользователь при оформлении заказа."
+msgstr "Название метода доставки, которое видит пользователь при оформлении заказа."
+
+msgid "Account ID"
+msgstr "ID аккаунта"
+
+msgid "Your CDEK account identifier"
+msgstr "Идентификатор вашего аккаунта CDEK"
+
+msgid "Secure Password"
+msgstr "Безопасный пароль"
+
+msgid "Your CDEK secure password"
+msgstr "Ваш безопасный пароль CDEK"
+
+msgid "Test Mode"
+msgstr "Тестовый режим"
+
+msgid "Enable test mode"
+msgstr "Включить тестовый режим"
+
+msgid "Use CDEK test API for development"
+msgstr "Использовать тестовый API CDEK для разработки"
+
+msgid "Sender City Code"
+msgstr "Код города отправителя"
+
+msgid "CDEK city code for sender location (Saratov: 393)"
+msgstr "Код города CDEK для местоположения отправителя (Саратов: 393)"
+
+msgid "Pickup Points"
+msgstr "Пункты выдачи"
+
+msgid "Enable pickup from CDEK points"
+msgstr "Включить самовывоз из пунктов CDEK"
+
+msgid "Door Delivery"
+msgstr "Доставка до двери"
+
+msgid "Enable door-to-door delivery"
+msgstr "Включить доставку до двери"
+
+msgid "Extra Cost"
+msgstr "Дополнительная стоимость"
+
+msgid "Select pickup point"
+msgstr "Выберите пункт выдачи"
+
+msgid "Выберите пункт выдачи"
+msgstr "Выберите пункт выдачи"
+
+msgid "Available pickup points:"
+msgstr "Доступные пункты выдачи:"
+
+msgid "Selected pickup point:"
+msgstr "Выбранный пункт выдачи:"
+
+msgid "Please select a CDEK pickup point"
+msgstr "Пожалуйста, выберите пункт выдачи CDEK"
+
+msgid "Пожалуйста, выберите пункт выдачи CDEK"
+msgstr "Пожалуйста, выберите пункт выдачи CDEK"

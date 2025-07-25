@@ -51,11 +51,11 @@ class WC_CDEK_Frontend {
         <tr class="cdek-pickup-selector">
             <td colspan="2">
                 <div id="cdek-pickup-container">
-                    <h4><?php _e('Select CDEK Pickup Point', 'woocommerce-cdek-delivery'); ?></h4>
+                    <h4><?php _e('Выберите пункт выдачи CDEK', 'woocommerce-cdek-delivery'); ?></h4>
                     
                     <div class="cdek-search-container">
-                        <input type="text" id="cdek-city-search" placeholder="<?php _e('Enter your city', 'woocommerce-cdek-delivery'); ?>" />
-                        <button type="button" id="cdek-search-btn"><?php _e('Search', 'woocommerce-cdek-delivery'); ?></button>
+                        <input type="text" id="cdek-city-search" placeholder="<?php _e('Введите название города', 'woocommerce-cdek-delivery'); ?>" />
+                        <button type="button" id="cdek-search-btn"><?php _e('Поиск', 'woocommerce-cdek-delivery'); ?></button>
                     </div>
                     
                     <div id="cdek-map-container" style="display: none;">
@@ -63,13 +63,13 @@ class WC_CDEK_Frontend {
                     </div>
                     
                     <div id="cdek-offices-list" style="display: none;">
-                        <h5><?php _e('Available pickup points:', 'woocommerce-cdek-delivery'); ?></h5>
+                        <h5><?php _e('Доступные пункты выдачи:', 'woocommerce-cdek-delivery'); ?></h5>
                         <div class="cdek-offices-container"></div>
                     </div>
                     
                     <input type="hidden" id="cdek-selected-office" name="cdek_pickup_office" value="" />
                     <div id="cdek-selected-office-info" style="display: none;">
-                        <h5><?php _e('Selected pickup point:', 'woocommerce-cdek-delivery'); ?></h5>
+                        <h5><?php _e('Выбранный пункт выдачи:', 'woocommerce-cdek-delivery'); ?></h5>
                         <div class="cdek-office-details"></div>
                     </div>
                 </div>
@@ -210,15 +210,15 @@ class WC_CDEK_Frontend {
         if ($pickup_office) {
             ?>
             <div class="cdek-pickup-info">
-                <h4><?php _e('CDEK Pickup Point', 'woocommerce-cdek-delivery'); ?></h4>
+                <h4><?php _e('Пункт выдачи CDEK', 'woocommerce-cdek-delivery'); ?></h4>
                 <p>
-                    <strong><?php _e('Code:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['code']); ?><br>
-                    <strong><?php _e('Address:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['address']); ?><br>
+                    <strong><?php _e('Код:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['code']); ?><br>
+                    <strong><?php _e('Адрес:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['address']); ?><br>
                     <?php if (!empty($pickup_office['phone'])): ?>
-                        <strong><?php _e('Phone:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['phone']); ?><br>
+                        <strong><?php _e('Телефон:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['phone']); ?><br>
                     <?php endif; ?>
                     <?php if (!empty($pickup_office['work_time'])): ?>
-                        <strong><?php _e('Working hours:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['work_time']); ?>
+                        <strong><?php _e('Время работы:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['work_time']); ?>
                     <?php endif; ?>
                 </p>
             </div>
@@ -234,26 +234,26 @@ class WC_CDEK_Frontend {
         
         if ($pickup_office) {
             if ($plain_text) {
-                echo "\n" . __('CDEK Pickup Point:', 'woocommerce-cdek-delivery') . "\n";
-                echo __('Code:', 'woocommerce-cdek-delivery') . ' ' . $pickup_office['code'] . "\n";
-                echo __('Address:', 'woocommerce-cdek-delivery') . ' ' . $pickup_office['address'] . "\n";
+                echo "\n" . __('Пункт выдачи CDEK:', 'woocommerce-cdek-delivery') . "\n";
+                echo __('Код:', 'woocommerce-cdek-delivery') . ' ' . $pickup_office['code'] . "\n";
+                echo __('Адрес:', 'woocommerce-cdek-delivery') . ' ' . $pickup_office['address'] . "\n";
                 if (!empty($pickup_office['phone'])) {
-                    echo __('Phone:', 'woocommerce-cdek-delivery') . ' ' . $pickup_office['phone'] . "\n";
+                    echo __('Телефон:', 'woocommerce-cdek-delivery') . ' ' . $pickup_office['phone'] . "\n";
                 }
                 if (!empty($pickup_office['work_time'])) {
-                    echo __('Working hours:', 'woocommerce-cdek-delivery') . ' ' . $pickup_office['work_time'] . "\n";
+                    echo __('Время работы:', 'woocommerce-cdek-delivery') . ' ' . $pickup_office['work_time'] . "\n";
                 }
             } else {
                 ?>
-                <h3><?php _e('CDEK Pickup Point', 'woocommerce-cdek-delivery'); ?></h3>
+                <h3><?php _e('Пункт выдачи CDEK', 'woocommerce-cdek-delivery'); ?></h3>
                 <p>
-                    <strong><?php _e('Code:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['code']); ?><br>
-                    <strong><?php _e('Address:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['address']); ?><br>
+                    <strong><?php _e('Код:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['code']); ?><br>
+                    <strong><?php _e('Адрес:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['address']); ?><br>
                     <?php if (!empty($pickup_office['phone'])): ?>
-                        <strong><?php _e('Phone:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['phone']); ?><br>
+                        <strong><?php _e('Телефон:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['phone']); ?><br>
                     <?php endif; ?>
                     <?php if (!empty($pickup_office['work_time'])): ?>
-                        <strong><?php _e('Working hours:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['work_time']); ?>
+                        <strong><?php _e('Время работы:', 'woocommerce-cdek-delivery'); ?></strong> <?php echo esc_html($pickup_office['work_time']); ?>
                     <?php endif; ?>
                 </p>
                 <?php
@@ -268,7 +268,7 @@ class WC_CDEK_Frontend {
         $pickup_office = get_post_meta($order->get_id(), '_cdek_pickup_office', true);
         
         if ($pickup_office) {
-            $shipping_display .= '<br><small>' . __('Pickup point:', 'woocommerce-cdek-delivery') . ' ' . esc_html($pickup_office['address']) . '</small>';
+            $shipping_display .= '<br><small>' . __('Пункт выдачи:', 'woocommerce-cdek-delivery') . ' ' . esc_html($pickup_office['address']) . '</small>';
         }
         
         return $shipping_display;
