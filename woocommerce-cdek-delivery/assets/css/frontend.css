@@ -1,0 +1,328 @@
+/* CDEK Delivery Frontend Styles */
+
+.cdek-pickup-selector {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+.cdek-pickup-selector h4 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Search Container */
+.cdek-search-container {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+    align-items: center;
+}
+
+.cdek-search-container input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.cdek-search-container input[type="text"]:focus {
+    outline: none;
+    border-color: #0073aa;
+    box-shadow: 0 0 0 3px rgba(0, 115, 170, 0.1);
+}
+
+.cdek-search-container button {
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #0073aa 0%, #005a87 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cdek-search-container button:hover {
+    background: linear-gradient(135deg, #005a87 0%, #004d73 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cdek-search-container button:active {
+    transform: translateY(0);
+}
+
+/* Map Container */
+#cdek-map-container {
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#cdek-map {
+    width: 100%;
+    height: 400px;
+    border: none;
+}
+
+/* Offices List */
+#cdek-offices-list h5 {
+    margin: 20px 0 10px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.cdek-offices-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.cdek-office-item {
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.cdek-office-item:last-child {
+    border-bottom: none;
+}
+
+.cdek-office-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(2px);
+}
+
+.cdek-office-item.selected {
+    background: linear-gradient(90deg, #e3f2fd 0%, #f3f9ff 100%);
+    border-left: 4px solid #0073aa;
+    box-shadow: inset 0 1px 3px rgba(0, 115, 170, 0.1);
+}
+
+.cdek-office-item.selected::before {
+    content: "✓";
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #0073aa;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.cdek-office-name {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+    font-size: 15px;
+}
+
+.cdek-office-address {
+    color: #666;
+    margin-bottom: 6px;
+    line-height: 1.4;
+    font-size: 14px;
+}
+
+.cdek-office-phone {
+    color: #0073aa;
+    font-size: 13px;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.cdek-office-hours {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.3;
+}
+
+/* Loading and Error States */
+.cdek-loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-style: italic;
+}
+
+.cdek-loading::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #0073aa;
+    border-radius: 50%;
+    animation: cdek-spin 1s linear infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+@keyframes cdek-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.cdek-error {
+    color: #d32f2f;
+    padding: 15px;
+    background: linear-gradient(135deg, #ffebee 0%, #fce4ec 100%);
+    border: 1px solid #ffcdd2;
+    border-radius: 6px;
+    margin: 10px 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Selected Office Info */
+#cdek-selected-office-info {
+    background: linear-gradient(135deg, #e8f5e8 0%, #f1f8e9 100%);
+    padding: 20px;
+    border: 1px solid #4caf50;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1);
+}
+
+#cdek-selected-office-info h5 {
+    margin: 0 0 15px 0;
+    color: #2e7d32;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#cdek-selected-office-info .cdek-office-details {
+    color: #333;
+}
+
+#cdek-selected-office-info .cdek-office-name {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+#cdek-selected-office-info .cdek-office-phone {
+    color: #388e3c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cdek-search-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .cdek-search-container button {
+        margin-top: 10px;
+    }
+    
+    #cdek-map {
+        height: 300px;
+    }
+    
+    .cdek-offices-container {
+        max-height: 250px;
+    }
+    
+    .cdek-office-item {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cdek-pickup-selector {
+        padding-top: 15px;
+    }
+    
+    .cdek-pickup-selector h4 {
+        font-size: 16px;
+    }
+    
+    #cdek-map {
+        height: 250px;
+    }
+    
+    .cdek-offices-container {
+        max-height: 200px;
+    }
+    
+    .cdek-search-container input[type="text"],
+    .cdek-search-container button {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+}
+
+/* Custom Scrollbar for Offices List */
+.cdek-offices-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cdek-offices-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.cdek-offices-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.cdek-offices-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Animation for office list appearance */
+.cdek-office-item {
+    opacity: 0;
+    animation: cdek-fadeInUp 0.3s ease forwards;
+}
+
+.cdek-office-item:nth-child(1) { animation-delay: 0.1s; }
+.cdek-office-item:nth-child(2) { animation-delay: 0.15s; }
+.cdek-office-item:nth-child(3) { animation-delay: 0.2s; }
+.cdek-office-item:nth-child(4) { animation-delay: 0.25s; }
+.cdek-office-item:nth-child(5) { animation-delay: 0.3s; }
+
+@keyframes cdek-fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Focus indicators for accessibility */
+.cdek-office-item:focus {
+    outline: 2px solid #0073aa;
+    outline-offset: -2px;
+}
+
+/* Print styles */
+@media print {
+    #cdek-map-container,
+    .cdek-search-container {
+        display: none;
+    }
+    
+    #cdek-selected-office-info {
+        background: #fff !important;
+        border: 1px solid #000 !important;
+        box-shadow: none !important;
+    }
+}
