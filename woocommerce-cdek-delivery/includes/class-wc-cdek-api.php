@@ -347,7 +347,24 @@ class WC_CDEK_API {
     /**
      * Get delivery points with map coordinates
      */
-    public function get_delivery_points_with_map($city_code) {
+    public function get_delivery_points_with_map($city_query) {
+        // Сначала попробуем найти город по названию
+        $city_code = null;
+        
+        if (is_numeric($city_query)) {
+            $city_code = $city_query;
+        } else {
+            // Ищем город по названию
+            $cities = $this->get_cities($city_query, 1);
+            if (!empty($cities) && isset($cities[0]['code'])) {
+                $city_code = $cities[0]['code'];
+            }
+        }
+        
+        if (!$city_code) {
+            return array();
+        }
+        
         $offices = $this->get_offices($city_code);
         
         if (empty($offices)) {
@@ -362,7 +379,7 @@ class WC_CDEK_API {
                 'name' => $office['name'] ?? '',
                 'address' => $office['location']['address_full'] ?? $office['location']['address'] ?? '',
                 'phone' => $office['phone'] ?? '',
-                'work_time' => $office['work_time'] ?? '',
+                'work_time' => is_array($office['work_time']) ? json_encode($office['work_time']) : ($office['work_time'] ?? ''),
                 'latitude' => $office['location']['latitude'] ?? 0,
                 'longitude' => $office['location']['longitude'] ?? 0,
                 'type' => $office['type'] ?? 'PVZ',

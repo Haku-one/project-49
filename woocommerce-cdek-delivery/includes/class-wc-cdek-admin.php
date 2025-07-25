@@ -417,7 +417,10 @@ class WC_CDEK_Admin {
      * AJAX create order
      */
     public function ajax_create_order() {
-        check_ajax_referer('cdek_admin', 'nonce');
+        if (!wp_verify_nonce($_POST['nonce'] ?? '', 'cdek_admin')) {
+            wp_send_json_error(array('message' => 'Security check failed'));
+            return;
+        }
         
         $order_id = intval($_POST['order_id']);
         $order = wc_get_order($order_id);
@@ -635,7 +638,15 @@ class WC_CDEK_Admin {
      * AJAX test connection
      */
     public function ajax_test_connection() {
-        check_ajax_referer('cdek_admin', 'nonce');
+        if (!wp_verify_nonce($_POST['nonce'] ?? '', 'cdek_admin')) {
+            wp_send_json_error(array('message' => 'Security check failed'));
+            return;
+        }
+        
+        if (!class_exists('WC_CDEK_API')) {
+            wp_send_json_error(array('message' => 'CDEK API class not found'));
+            return;
+        }
         
         $api = new WC_CDEK_API();
         
@@ -657,7 +668,15 @@ class WC_CDEK_Admin {
      * AJAX sync offices
      */
     public function ajax_sync_offices() {
-        check_ajax_referer('cdek_admin', 'nonce');
+        if (!wp_verify_nonce($_POST['nonce'] ?? '', 'cdek_admin')) {
+            wp_send_json_error(array('message' => 'Security check failed'));
+            return;
+        }
+        
+        if (!class_exists('WC_CDEK_API')) {
+            wp_send_json_error(array('message' => 'CDEK API class not found'));
+            return;
+        }
         
         $api = new WC_CDEK_API();
         
@@ -709,7 +728,10 @@ class WC_CDEK_Admin {
      * AJAX get order status
      */
     public function ajax_get_order_status() {
-        check_ajax_referer('cdek_admin', 'nonce');
+        if (!wp_verify_nonce($_POST['nonce'] ?? '', 'cdek_admin')) {
+            wp_send_json_error(array('message' => 'Security check failed'));
+            return;
+        }
         
         $order_id = intval($_POST['order_id']);
         $cdek_uuid = get_post_meta($order_id, '_cdek_order_uuid', true);
