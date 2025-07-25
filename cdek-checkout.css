@@ -1,0 +1,341 @@
+/* CDEK Checkout Styles */
+
+.cdek-map-block {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cdek-map-block h4 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.cdek-map-block h5 {
+    margin: 15px 0 10px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Поиск */
+.cdek-search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+#cdek-city-search {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+#cdek-city-search:focus {
+    outline: none;
+    border-color: #007cba;
+    box-shadow: 0 0 0 2px rgba(0, 124, 186, 0.1);
+}
+
+#cdek-search-btn {
+    padding: 10px 20px;
+    background: #007cba;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+#cdek-search-btn:hover {
+    background: #005a87;
+}
+
+#cdek-search-btn:active {
+    transform: translateY(1px);
+}
+
+/* Карта */
+#cdek-map-container {
+    margin: 15px 0;
+}
+
+#cdek-map {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Список пунктов выдачи */
+.cdek-offices-container {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background: #f9f9f9;
+}
+
+.cdek-office-item {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background: white;
+}
+
+.cdek-office-item:last-child {
+    border-bottom: none;
+}
+
+.cdek-office-item:hover {
+    background: #f0f8ff;
+}
+
+.cdek-office-item.selected {
+    background: #e6f3ff;
+    border-left: 4px solid #007cba;
+}
+
+.cdek-office-name {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+
+.cdek-office-address {
+    color: #666;
+    margin-bottom: 3px;
+    font-size: 14px;
+}
+
+.cdek-office-phone {
+    color: #007cba;
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+
+.cdek-office-hours {
+    color: #888;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* Выбранный пункт */
+#cdek-selected-office-info {
+    margin-top: 15px;
+    padding: 15px;
+    background: #e8f5e8;
+    border: 1px solid #4caf50;
+    border-radius: 5px;
+}
+
+#cdek-selected-office-info h5 {
+    color: #2e7d32;
+    margin-top: 0;
+}
+
+.cdek-office-details {
+    color: #333;
+}
+
+.cdek-office-details .cdek-office-name {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+/* Состояния загрузки и ошибок */
+.cdek-loading {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    font-style: italic;
+}
+
+.cdek-loading:before {
+    content: "⏳ ";
+    font-size: 18px;
+}
+
+.cdek-error {
+    text-align: center;
+    padding: 20px;
+    color: #d32f2f;
+    background: #ffebee;
+    border: 1px solid #ffcdd2;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.cdek-error:before {
+    content: "⚠️ ";
+    font-size: 16px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .cdek-map-block {
+        margin: 15px 0;
+        padding: 15px;
+    }
+    
+    .cdek-search-container {
+        flex-direction: column;
+    }
+    
+    #cdek-search-btn {
+        width: 100%;
+    }
+    
+    #cdek-map {
+        height: 300px !important;
+    }
+    
+    .cdek-offices-container {
+        max-height: 200px;
+    }
+    
+    .cdek-office-item {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cdek-map-block {
+        margin: 10px 0;
+        padding: 10px;
+    }
+    
+    .cdek-map-block h4 {
+        font-size: 16px;
+    }
+    
+    .cdek-map-block h5 {
+        font-size: 14px;
+    }
+    
+    #cdek-map {
+        height: 250px !important;
+    }
+}
+
+/* Интеграция с WooCommerce блоками */
+.wc-block-checkout .cdek-map-block {
+    margin: 20px 0;
+}
+
+.wc-block-components-checkout-step .cdek-map-block {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+}
+
+/* Темная тема */
+@media (prefers-color-scheme: dark) {
+    .cdek-map-block {
+        background: #1e1e1e;
+        border-color: #333;
+        color: #fff;
+    }
+    
+    .cdek-map-block h4,
+    .cdek-map-block h5 {
+        color: #fff;
+    }
+    
+    #cdek-city-search {
+        background: #2a2a2a;
+        border-color: #444;
+        color: #fff;
+    }
+    
+    #cdek-city-search::placeholder {
+        color: #aaa;
+    }
+    
+    .cdek-offices-container {
+        background: #2a2a2a;
+        border-color: #444;
+    }
+    
+    .cdek-office-item {
+        background: #1e1e1e;
+        border-color: #333;
+        color: #fff;
+    }
+    
+    .cdek-office-item:hover {
+        background: #2a2a2a;
+    }
+    
+    .cdek-office-item.selected {
+        background: #1a3a5c;
+    }
+    
+    .cdek-office-address {
+        color: #ccc;
+    }
+    
+    .cdek-office-hours {
+        color: #aaa;
+    }
+    
+    #cdek-selected-office-info {
+        background: #1a3a1a;
+        border-color: #4caf50;
+    }
+    
+    .cdek-error {
+        background: #3a1a1a;
+        border-color: #d32f2f;
+        color: #ffcdd2;
+    }
+}
+
+/* Анимации */
+.cdek-office-item {
+    transition: all 0.3s ease;
+}
+
+.cdek-office-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#cdek-map-container {
+    transition: opacity 0.5s ease;
+}
+
+#cdek-offices-list {
+    transition: opacity 0.5s ease;
+}
+
+/* Скроллбар */
+.cdek-offices-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cdek-offices-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.cdek-offices-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+.cdek-offices-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
