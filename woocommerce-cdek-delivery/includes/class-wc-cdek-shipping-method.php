@@ -15,8 +15,8 @@ class WC_CDEK_Shipping_Method extends WC_Shipping_Method {
     public function __construct($instance_id = 0) {
         $this->id = 'cdek';
         $this->instance_id = absint($instance_id);
-        $this->method_title = __('CDEK Delivery', 'woocommerce-cdek-delivery');
-        $this->method_description = __('CDEK delivery method with pickup points and door delivery', 'woocommerce-cdek-delivery');
+        $this->method_title = __('CDEK Доставка', 'woocommerce-cdek-delivery');
+        $this->method_description = __('Метод доставки CDEK с пунктами выдачи и доставкой до двери', 'woocommerce-cdek-delivery');
         $this->supports = array(
             'shipping-zones',
             'instance-settings',
@@ -44,16 +44,16 @@ class WC_CDEK_Shipping_Method extends WC_Shipping_Method {
     public function init_form_fields() {
         $this->form_fields = array(
             'enabled' => array(
-                'title' => __('Enable/Disable', 'woocommerce-cdek-delivery'),
+                'title' => __('Включить/Отключить', 'woocommerce-cdek-delivery'),
                 'type' => 'checkbox',
-                'label' => __('Enable CDEK delivery', 'woocommerce-cdek-delivery'),
+                'label' => __('Включить доставку CDEK', 'woocommerce-cdek-delivery'),
                 'default' => 'yes'
             ),
             'title' => array(
-                'title' => __('Title', 'woocommerce-cdek-delivery'),
+                'title' => __('Название', 'woocommerce-cdek-delivery'),
                 'type' => 'text',
-                'description' => __('This controls the title which the user sees during checkout.', 'woocommerce-cdek-delivery'),
-                'default' => __('CDEK Delivery', 'woocommerce-cdek-delivery'),
+                'description' => __('Название метода доставки, которое видит пользователь при оформлении заказа.', 'woocommerce-cdek-delivery'),
+                'default' => __('CDEK Доставка', 'woocommerce-cdek-delivery'),
                 'desc_tip' => true,
             ),
             'account' => array(

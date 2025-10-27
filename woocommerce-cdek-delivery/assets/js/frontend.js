@@ -68,7 +68,7 @@ jQuery(document).ready(function($) {
             officeHtml += '<div class="cdek-office-address">' + office.address + '</div>';
             
             if (office.phone) {
-                officeHtml += '<div class="cdek-office-phone">Тел: ' + office.phone + '</div>';
+                officeHtml += '<div class="cdek-office-phone">Телефон: ' + office.phone + '</div>';
             }
             
             if (office.work_time) {
@@ -102,7 +102,7 @@ jQuery(document).ready(function($) {
                 
                 var placemark = new ymaps.Placemark(coords, {
                     balloonContentHeader: office.name || 'CDEK ' + office.code,
-                    balloonContentBody: office.address + (office.phone ? '<br>Тел: ' + office.phone : ''),
+                    balloonContentBody: office.address + (office.phone ? '<br>Телефон: ' + office.phone : ''),
                     balloonContentFooter: office.work_time || '',
                     hintContent: office.address
                 }, {
@@ -156,7 +156,7 @@ jQuery(document).ready(function($) {
         html += '<div class="cdek-office-address">' + office.address + '</div>';
         
         if (office.phone) {
-            html += '<div class="cdek-office-phone">Тел: ' + office.phone + '</div>';
+            html += '<div class="cdek-office-phone">Телефон: ' + office.phone + '</div>';
         }
         
         if (office.work_time) {

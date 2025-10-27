@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: WooCommerce CDEK Delivery
+ * Plugin Name: WooCommerce CDEK Доставка
  * Plugin URI: https://github.com/your-username/woocommerce-cdek-delivery
- * Description: CDEK delivery integration for WooCommerce with interactive map, cost calculation and delivery points selection
- * Version: 1.0.0
- * Author: Your Name
+ * Description: Интеграция CDEK доставки для WooCommerce с интерактивной картой, расчетом стоимости и выбором пунктов выдачи. Поддерживает новое блочное оформление заказов.
+ * Version: 1.1.0
+ * Author: Ваше Имя
  * Author URI: https://yoursite.com
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -37,7 +37,7 @@ function wc_cdek_missing_wc_notice() {
 }
 
 // Define plugin constants
-define('WC_CDEK_VERSION', '1.0.0');
+define('WC_CDEK_VERSION', '1.1.0');
 define('WC_CDEK_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('WC_CDEK_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
@@ -99,6 +99,13 @@ class WC_CDEK_Delivery {
      * Load plugin textdomain
      */
     public function load_plugin_textdomain() {
+        $locale = apply_filters('plugin_locale', get_locale(), 'woocommerce-cdek-delivery');
+        $mofile = WC_CDEK_PLUGIN_PATH . 'languages/woocommerce-cdek-delivery-' . $locale . '.mo';
+        
+        if (file_exists($mofile)) {
+            load_textdomain('woocommerce-cdek-delivery', $mofile);
+        }
+        
         load_plugin_textdomain('woocommerce-cdek-delivery', false, dirname(plugin_basename(__FILE__)) . '/languages/');
     }
     
@@ -106,7 +113,7 @@ class WC_CDEK_Delivery {
      * Load plugin textdomain (alternative method)
      */
     public function load_textdomain() {
-        load_plugin_textdomain('woocommerce-cdek-delivery', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+        $this->load_plugin_textdomain();
     }
     
     /**
@@ -122,6 +129,12 @@ class WC_CDEK_Delivery {
         include_once WC_CDEK_PLUGIN_PATH . 'includes/class-wc-cdek-shipping-method.php';
         include_once WC_CDEK_PLUGIN_PATH . 'includes/class-wc-cdek-admin.php';
         include_once WC_CDEK_PLUGIN_PATH . 'includes/class-wc-cdek-frontend.php';
+        include_once WC_CDEK_PLUGIN_PATH . 'includes/class-wc-cdek-blocks.php';
+        
+        // Include test file in development
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            include_once WC_CDEK_PLUGIN_PATH . 'test-integration.php';
+        }
     }
     
     /**
@@ -137,11 +150,11 @@ class WC_CDEK_Delivery {
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'nonce' => wp_create_nonce('wc_cdek_nonce'),
                 'i18n' => array(
-                    'select_office' => __('Select pickup point', 'woocommerce-cdek-delivery'),
-                    'loading' => __('Loading...', 'woocommerce-cdek-delivery'),
-                    'error' => __('Error loading data', 'woocommerce-cdek-delivery'),
-                    'no_offices' => __('No pickup points found', 'woocommerce-cdek-delivery'),
-                    'calculate_cost' => __('Calculate delivery cost', 'woocommerce-cdek-delivery')
+                    'select_office' => __('Выберите пункт выдачи', 'woocommerce-cdek-delivery'),
+                    'loading' => __('Загрузка...', 'woocommerce-cdek-delivery'),
+                    'error' => __('Ошибка загрузки данных', 'woocommerce-cdek-delivery'),
+                    'no_offices' => __('Пункты выдачи не найдены', 'woocommerce-cdek-delivery'),
+                    'calculate_cost' => __('Рассчитать стоимость доставки', 'woocommerce-cdek-delivery')
                 )
             ));
         }
@@ -206,12 +219,19 @@ class WC_CDEK_Delivery {
      * AJAX handler for getting CDEK offices
      */
     public function ajax_get_offices() {
-        if (!wp_verify_nonce($_POST['nonce'] ?? '', 'wc_cdek_nonce')) {
-            wp_send_json_error(array('message' => 'Security check failed'));
+        // Проверяем nonce
+        $nonce = $_POST['nonce'] ?? $_REQUEST['nonce'] ?? '';
+        if (!wp_verify_nonce($nonce, 'wc_cdek_nonce')) {
+            wp_send_json_error(array('message' => 'Security check failed. Nonce: ' . $nonce));
             return;
         }
         
         $city = sanitize_text_field($_POST['city'] ?? '');
+        
+        if (empty($city)) {
+            wp_send_json_error(array('message' => 'City parameter is required'));
+            return;
+        }
         
         if (!class_exists('WC_CDEK_API')) {
             wp_send_json_error(array('message' => 'CDEK API class not found'));
@@ -221,7 +241,11 @@ class WC_CDEK_Delivery {
         $api = new WC_CDEK_API();
         $offices = $api->get_delivery_points_with_map($city);
         
-        wp_send_json_success($offices);
+        if (is_array($offices) && !empty($offices)) {
+            wp_send_json_success($offices);
+        } else {
+            wp_send_json_error(array('message' => 'No offices found for city: ' . $city));
+        }
     }
 }
 
